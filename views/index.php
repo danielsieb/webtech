@@ -27,6 +27,8 @@
 
     <!-- Plugin JS -->
     <script src="views/js/Chart.bundle.js"></script>
+    <script src="views/js/smoothScroll.js"></script>
+
 
   </head>
 
@@ -60,7 +62,7 @@
   
 
         <!-- Eingabeformular für Suchbegriff -->
-        <form class="js-scroll-trigger" action="?action=search#charts" method="post">
+        <form action="?action=search#charts" method="post">
           <div class="form-group">
            <input class="form-control" id="searchKey" name="searchKey" type="text" placeholder="Keyword" required="required" data-validation-required-message="Please enter a keyword.">
                   <p class="help-block text-danger"></p>
@@ -395,11 +397,11 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="views/img/portfolio/cabin.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+              <img class="img-fluid mb-5" src="<?php echo $image_urls[0] ?>" alt="">
+              <p class="mb-5">Einzelnes Analyseergebnis</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
-                Close Project</a>
+                Close</a>
             </div>
           </div>
         </div>
@@ -417,11 +419,11 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="views/img/portfolio/cake.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+              <img class="img-fluid mb-5" src="<?php echo $image_urls[1] ?>" alt="">
+              <p class="mb-5">Einzelnes Analyseergebnis</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
-                Close Project</a>
+                Close</a>
             </div>
           </div>
         </div>
@@ -439,11 +441,11 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="views/img/portfolio/circus.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+              <img class="img-fluid mb-5" src="<?php echo $image_urls[2] ?>" alt="">
+              <p class="mb-5">Einzelnes Analyseergebnis</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
-                Close Project</a>
+                Close</a>
             </div>
           </div>
         </div>
@@ -461,11 +463,11 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="views/img/portfolio/game.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+              <img class="img-fluid mb-5" src="<?php echo $image_urls[3] ?>" alt="">
+              <p class="mb-5">Einzelnes Analyseergebnis</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
-                Close Project</a>
+                Close</a>
             </div>
           </div>
         </div>
@@ -483,11 +485,11 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="views/img/portfolio/safe.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+              <img class="img-fluid mb-5" src="<?php echo $image_urls[4] ?>" alt="">
+              <p class="mb-5">Einzelnes Analyseergebnis</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
-                Close Project</a>
+                Close</a>
             </div>
           </div>
         </div>
@@ -505,11 +507,11 @@
             <div class="col-lg-8 mx-auto">
               <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="views/img/portfolio/submarine.png" alt="">
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+              <img class="img-fluid mb-5" src="<?php echo $image_urls[5] ?>" alt="">
+              <p class="mb-5">Einzelnes Analyseergebnis</p>
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
-                Close Project</a>
+                Close</a>
             </div>
           </div>
         </div>
