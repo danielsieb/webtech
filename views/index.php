@@ -89,7 +89,7 @@
         	      var myChart = new Chart(ctx, {
         	          type: 'bar',
         	          data: {
-        	              labels: ["<?php echo $res[0] ?>", "<?php echo $res[1] ?>", "<?php echo $res[2] ?>", "<?php echo $res[3] ?>", "<?php 	echo $res[4] ?>", "<?php echo $res[5] ?>"],
+        	              labels: ["Tree", "Baum", "Herbst", "Himmel", "Sommer", "Sky"],
         	              datasets: [{
         	                  label: '# Matches',
         	                  data: [12, 19, 3, 5, 2, 3],
