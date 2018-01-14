@@ -16,6 +16,8 @@
       foreach ($image_urls as $key => $value) {
         $json[$key] = json_decode(Suche::catchGoogleVisionData($value));
       }
+
+      $cumulativeArray = Suche::cumulateJson($json);
       
       require_once('views/index.php'); 
     }
