@@ -78,170 +78,177 @@
     <?php if ($searched) { echo $labels ?>
 
     	 <!-- Chart Section -->
-    	<section class="charts" id="charts">
-        <div class="container">
-    	    <h2 class="text-center text-uppercase text-secondary mb-0">Search Results</h2>
-    	    <hr class="star-dark mb-5">
-          <div class="row">
-            <div class="col-md-5 col-lg-5">
-        	    <canvas id="myChart" width="400" height="400"></canvas>
+      	<section class="charts" id="charts">
+          <div class="container">
+      	    <h2 class="text-center text-uppercase text-secondary mb-0">Search Results</h2>
+      	    <hr class="star-dark mb-5">
+            <div class="row">
+              <div class="col-md-5 col-lg-5">
+          	    <canvas id="myChart" width="400" height="400"></canvas>
+          	    <script>
+          	      var ctx = document.getElementById("myChart").getContext('2d');
+          	      var myChart = new Chart(ctx, {
+          	          type: 'bar',
+          	          data: {
+          	              labels: ["Tree", "Baum", "Herbst", "Himmel", "Sommer", "Sky"],
+          	              datasets: [{
+          	                  label: '# Matches',
+          	                  data: [12, 19, 3, 5, 2, 3],
+          	                  backgroundColor: [
+                                'rgb(255, 20,  100)',
+                                'rgb(40,  54,  70)',
+                                'rgb(255, 168, 25)',
+                                'rgb(143, 190, 83)',
+                                'rgb(46, 141, 214)',
+                                'rgb(71, 89,  106)'
+                            ],
+                            borderColor: [
+                                'rgb(250, 15,  90)',
+                                'rgb(30,  49,  65)',
+                                'rgb(250, 163, 20)',
+                                'rgb(138, 185, 78)',
+                                'rgb(41, 136, 209)',
+                                'rgb(66, 84,  101)'
+                            ],
+          	                  borderWidth: 1
+          	              }]
+          	          },
+          	          options: {
+          	              scales: {
+          	                  yAxes: [{
+          	                      ticks: {
+          	                          beginAtZero:true
+          	                      }
+          	                  }]
+          	              }
+          	          }
+          	      });
+          	    </script>
+        	   </div>
+  	 
+            <div class="col-md-2 col-lg-2">
+            </div>
+  
+  
+  
+  
+        	  <div class="col-md-5 col-lg-5">
+        	    <canvas id="myChart2" width="400" height="400"></canvas>
         	    <script>
-        	      var ctx = document.getElementById("myChart").getContext('2d');
-        	      var myChart = new Chart(ctx, {
-        	          type: 'bar',
+        	      var ctx = document.getElementById("myChart2").getContext('2d');
+        	      var myChart2 = new Chart(myChart2, {
+        	          type: 'pie',
         	          data: {
         	              labels: ["Tree", "Baum", "Herbst", "Himmel", "Sommer", "Sky"],
         	              datasets: [{
         	                  label: '# Matches',
         	                  data: [12, 19, 3, 5, 2, 3],
         	                  backgroundColor: [
-                              'rgb(255, 20,  100)',
-                              'rgb(40,  54,  70)',
-                              'rgb(255, 168, 25)',
-                              'rgb(143, 190, 83)',
-                              'rgb(46, 141, 214)',
-                              'rgb(71, 89,  106)'
-                          ],
-                          borderColor: [
-                              'rgb(250, 15,  90)',
-                              'rgb(30,  49,  65)',
-                              'rgb(250, 163, 20)',
-                              'rgb(138, 185, 78)',
-                              'rgb(41, 136, 209)',
-                              'rgb(66, 84,  101)'
-                          ],
+                                'rgb(255, 20,  100)',
+                                'rgb(40,  54,  70)',
+                                'rgb(255, 168, 25)',
+                                'rgb(143, 190, 83)',
+                                'rgb(46, 141, 214)',
+                                'rgb(71, 89,  106)'
+        	                  ],
+        	                  borderColor: [
+        	                      'rgb(250, 15,  90)',
+                                'rgb(30,  49,  65)',
+                                'rgb(250, 163, 20)',
+                                'rgb(138, 185, 78)',
+                                'rgb(41, 136, 209)',
+                                'rgb(66, 84,  101)'
+        	                  ],
         	                  borderWidth: 1
         	              }]
         	          },
         	          options: {
-        	              scales: {
-        	                  yAxes: [{
-        	                      ticks: {
-        	                          beginAtZero:true
-        	                      }
-        	                  }]
-        	              }
+        	          
         	          }
         	      });
         	    </script>
-      	   </div>
-  	
-          <div class="col-md-2 col-lg-2">
+        	  </div>
           </div>
-
-
-
-
-      	  <div class="col-md-5 col-lg-5">
-      	    <canvas id="myChart2" width="400" height="400"></canvas>
-      	    <script>
-      	      var ctx = document.getElementById("myChart2").getContext('2d');
-      	      var myChart2 = new Chart(myChart2, {
-      	          type: 'pie',
-      	          data: {
-      	              labels: ["Tree", "Baum", "Herbst", "Himmel", "Sommer", "Sky"],
-      	              datasets: [{
-      	                  label: '# Matches',
-      	                  data: [12, 19, 3, 5, 2, 3],
-      	                  backgroundColor: [
-                              'rgb(255, 20,  100)',
-                              'rgb(40,  54,  70)',
-                              'rgb(255, 168, 25)',
-                              'rgb(143, 190, 83)',
-                              'rgb(46, 141, 214)',
-                              'rgb(71, 89,  106)'
-      	                  ],
-      	                  borderColor: [
-      	                      'rgb(250, 15,  90)',
-                              'rgb(30,  49,  65)',
-                              'rgb(250, 163, 20)',
-                              'rgb(138, 185, 78)',
-                              'rgb(41, 136, 209)',
-                              'rgb(66, 84,  101)'
-      	                  ],
-      	                  borderWidth: 1
-      	              }]
-      	          },
-      	          options: {
-      	          
-      	          }
-      	      });
-      	    </script>
-      	  </div>
-        </div>
-    	 
-    	</section> 
-
-
-    <!-- Portfolio Grid Section -->
-    <section class="portfolio" id="portfolio">
-      <div class="container">
-        <h2 class="text-center text-uppercase text-primary mb-0">Images</h2>
-        <hr class="star-dark mb-5">
-        <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
+      	 
+      	</section> 
+  
+  
+      <!-- Portfolio Grid Section -->
+      <section class="portfolio" id="portfolio">
+        <div class="container">
+          <h2 class="text-center text-uppercase text-primary mb-0">Images</h2>
+          <hr class="star-dark mb-5">
+          <div class="row">
+            <?php if ($image_urls[0] != NULL) { ?>
+            <div class="col-md-6 col-lg-4">
+              <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
+                <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                  <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                    <i class="fa fa-search-plus fa-3x"></i>
+                  </div>
                 </div>
-              </div>
-              <img class="img-fluid" src="<?php echo $image_urls[0] ?>" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
+                <img class="img-fluid" src="<?php echo $image_urls[0] ?>" alt="">
+              </a>
+            </div>
+            <?php } if ($image_urls[1] != NULL) { ?>
+            <div class="col-md-6 col-lg-4">
+              <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
+                <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                  <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                    <i class="fa fa-search-plus fa-3x"></i>
+                  </div>
                 </div>
-              </div>
-              <img class="img-fluid" src="<?php echo $image_urls[1] ?>" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
+                <img class="img-fluid" src="<?php echo $image_urls[1] ?>" alt="">
+              </a>
+            </div>
+            <?php } if ($image_urls[2] != NULL) { ?>
+            <div class="col-md-6 col-lg-4">
+              <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
+                <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                  <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                    <i class="fa fa-search-plus fa-3x"></i>
+                  </div>
                 </div>
-              </div>
-              <img class="img-fluid" src="<?php echo $image_urls[2] ?>" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
+                <img class="img-fluid" src="<?php echo $image_urls[2] ?>" alt="">
+              </a>
+            </div>
+            <?php } if ($image_urls[3] != NULL) { ?>
+            <div class="col-md-6 col-lg-4">
+              <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
+                <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                  <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                    <i class="fa fa-search-plus fa-3x"></i>
+                  </div>
                 </div>
-              </div>
-              <img class="img-fluid" src="<?php echo $image_urls[3] ?>" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
+                <img class="img-fluid" src="<?php echo $image_urls[3] ?>" alt="">
+              </a>
+            </div>
+            <?php } else { ?><div class="col-md-6 col-lg-4"></div><?php } if (count($image_urls) >= 5) { ?>
+            <div class="col-md-6 col-lg-4">
+              <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-5">
+                <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                  <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                    <i class="fa fa-search-plus fa-3x"></i>
+                  </div>
                 </div>
-              </div>
-              <img class="img-fluid" src="<?php echo $image_urls[4] ?>" alt="">
-            </a>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fa fa-search-plus fa-3x"></i>
+                <img class="img-fluid" src="<?php echo $image_urls[4] ?>" alt="">
+              </a>
+            </div>
+            <?php } else { ?><div class="col-md-6 col-lg-4"></div><?php } if (count($image_urls) >= 6) { ?>
+            <div class="col-md-6 col-lg-4">
+              <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-6">
+                <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                  <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                    <i class="fa fa-search-plus fa-3x"></i>
+                  </div>
                 </div>
-              </div>
-              <img class="img-fluid" src="<?php echo $image_urls[5] ?>" alt="">
-            </a>
+                <img class="img-fluid" src="<?php echo $image_urls[5] ?>" alt="">
+              </a>
+            </div>
+            <?php } else { ?><div class="col-md-6 col-lg-4"></div><?php } ?>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
     <?php } ?>
 
