@@ -73,7 +73,7 @@
     </header>
     
 
-    <?php if ($searched) { ?>
+    <?php if ($searched) { echo $labels ?>
 
     	 <!-- Chart Section -->
     	<section class="charts" id="charts">

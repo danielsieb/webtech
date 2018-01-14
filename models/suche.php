@@ -1,6 +1,22 @@
 <?php
 
 class Suche {
+    
+    function auth_cloud_implicit($projectId)
+    {
+        $config = [
+            'projectId' => $projectId,
+        ];
+    
+        # If you don't specify credentials when constructing the client, the
+        # client library will look for credentials in the environment.
+        $storage = new StorageClient($config);
+    
+        # Make an authenticated API request (listing storage buckets)
+        foreach ($storage->buckets() as $bucket) {
+            printf('Bucket: %s' . PHP_EOL, $bucket->name());
+        }
+    }
 
 	private $such_ID;
 	private $zeitstempel;
@@ -71,28 +87,22 @@ class Suche {
     	 
     //schicken einer Abfrage und abholen von Analyseergebnisse
     //abholen von Analyseergebnisse(die unteren code ist aus die api  https://cloud.google.com/vision/docs/ detecting-labels#vision-label-detection-gcs-php)
-    namespace Google\Cloud\Samples\Vision;
-    
-    use Google\Cloud\Vision\VisionClient;
-    
-    namespace Google\Cloud\Samples\Vision;
-    
-    use Google\Cloud\Vision\VisionClient;
-    
-    public function detect_label($projectId, $path) {
-        $vision = new VisionClient([
-            'projectId' => $projectId,
-        ]);
-    
-        $image = $vision->image(file_get_contents($path), ['LABEL_DETECTION']);
-        $result = $vision->annotate($image);
-    
-        print("LABELS:\n");
-        foreach ($result->labels() as $label) {
-            print($label->description() . PHP_EOL);
-        }
+    public function catchGoogleVisionData($link) {
+
+        $json = '{"requests":  [{ "features":  [ {"type": "LABEL_DETECTION"}], "image": {"source": { "imageUri": "https://pbs.twimg.com/media/DTg7bOdX4AEfJoi.jpg"}}}]}';
+
+        $ch = curl_init('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA8o4W6wHolFeOEHD0ZdSiFS2S5TcytlIY');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+            'Content-Type: application/json',                                                                                
+            'Content-Length: ' . strlen($json))                                                                       
+        );         
+
+        $result = curl_exec($ch);
+
         return $result;
-    }
-  
+    } 
 }
 
