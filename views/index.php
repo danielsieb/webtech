@@ -75,7 +75,7 @@
     </header>
     
 
-    <?php if ($searched) { echo $labels ?>
+    <?php if ($searched) { echo gettype($test); print_r($test->responses->{'description'}) ?>
 
     	 <!-- Chart Section -->
       	<section class="charts" id="charts">
@@ -179,7 +179,7 @@
           <h2 class="text-center text-uppercase text-primary mb-0">Images</h2>
           <hr class="star-dark mb-5">
           <div class="row">
-            <?php if ($image_urls[0] != NULL) { ?>
+            <?php if (count($image_urls) >= 1) { ?>
             <div class="col-md-6 col-lg-4">
               <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-1">
                 <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
@@ -190,7 +190,7 @@
                 <img class="img-fluid" src="<?php echo $image_urls[0] ?>" alt="">
               </a>
             </div>
-            <?php } if ($image_urls[1] != NULL) { ?>
+            <?php } else { ?><div class="col-md-6 col-lg-4"></div><?php } if (count($image_urls) >= 2) { ?>
             <div class="col-md-6 col-lg-4">
               <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-2">
                 <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
@@ -201,7 +201,7 @@
                 <img class="img-fluid" src="<?php echo $image_urls[1] ?>" alt="">
               </a>
             </div>
-            <?php } if ($image_urls[2] != NULL) { ?>
+            <?php } else { ?><div class="col-md-6 col-lg-4"></div><?php } if (count($image_urls) >= 3) { ?>
             <div class="col-md-6 col-lg-4">
               <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-3">
                 <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
@@ -212,7 +212,7 @@
                 <img class="img-fluid" src="<?php echo $image_urls[2] ?>" alt="">
               </a>
             </div>
-            <?php } if ($image_urls[3] != NULL) { ?>
+            <?php } else { ?><div class="col-md-6 col-lg-4"></div><?php } if (count($image_urls) >= 4) { ?>
             <div class="col-md-6 col-lg-4">
               <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
                 <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">

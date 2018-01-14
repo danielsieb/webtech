@@ -10,7 +10,12 @@
       $searched = True;
       $searchKey = strip_tags(htmlspecialchars($_POST['searchKey']));
       $image_urls = Suche::catchImageUrls($searchKey);
-      $labels = Suche::catchGoogleVisionData('https://pbs.twimg.com/media/DTfgOgCWAAEBwtO.jpg');
+
+      $test = json_decode(Suche::catchGoogleVisionData($image_urls[0]));
+
+      foreach ($image_urls as $key => $value) {
+        $json[$key] = json_decode(Suche::catchGoogleVisionData($value));
+      }
       
       require_once('views/index.php'); 
     }

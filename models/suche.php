@@ -57,7 +57,7 @@ class Suche {
     
     
     //Speichern von Bildurl nach suchbegriff in Datenbank
-    public function catchImageUrls($suchbegriff){
+    public function catchImageUrls($suchbegriff) {
     
         $db = Db::getInstance();
         $suchId = uniqid();
@@ -89,20 +89,34 @@ class Suche {
     //abholen von Analyseergebnisse(die unteren code ist aus die api  https://cloud.google.com/vision/docs/ detecting-labels#vision-label-detection-gcs-php)
     public function catchGoogleVisionData($link) {
 
-        $json = '{"requests":  [{ "features":  [ {"type": "LABEL_DETECTION"}], "image": {"source": { "imageUri": "https://pbs.twimg.com/media/DTg7bOdX4AEfJoi.jpg"}}}]}';
+        $db = Db::getInstance();
+        $req = $db->query("SELECT Analyseergebnis FROM Bild WHERE Link = '$link'");
+        $result = $req->fetch(PDO::FETCH_ASSOC);
 
-        $ch = curl_init('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA8o4W6wHolFeOEHD0ZdSiFS2S5TcytlIY');
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-            'Content-Type: application/json',                                                                                
-            'Content-Length: ' . strlen($json))                                                                       
-        );         
+        if ($result['Analyseergebnis'] == NULL) {
 
-        $result = curl_exec($ch);
+            $json = '{"requests":  [{ "features":  [ {"type": "LABEL_DETECTION"}], "image": {"source": { "imageUri": "'. $link .'"}}}]}';
+    
+            $ch = curl_init('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyA8o4W6wHolFeOEHD0ZdSiFS2S5TcytlIY');
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+                'Content-Type: application/json',                                                                                
+                'Content-Length: ' . strlen($json))                                                                       
+            );         
+    
+            $result = curl_exec($ch);
+    
+            $db->query("UPDATE Bild SET Analyseergebnis = '$result' WHERE Link = '$link'");
 
-        return $result;
+            return $result;
+
+        } else {
+            $json = $result['Analyseergebnis'];
+            $db->query("UPDATE Bild SET Analyseergebnis = '$json' WHERE Link = '$link'");
+            return $json;
+        }
     } 
 }
 
