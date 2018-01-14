@@ -60,12 +60,12 @@
   
 
         <!-- Eingabeformular für Suchbegriff -->
-        <form action="?action=search" method="post">
+        <form class="js-scroll-trigger" action="?action=search#charts" method="post">
           <div class="form-group">
            <input class="form-control" id="searchKey" name="searchKey" type="text" placeholder="Keyword" required="required" data-validation-required-message="Please enter a keyword.">
                   <p class="help-block text-danger"></p>
           </div>
-          <button type="submit" class="btn btn-primary btn-xl" id="searchButton">Search</button>
+         <button type="submit" class="btn btn-primary btn-xl" id="searchButton">Search</button>
         </form>
 
 
@@ -75,9 +75,8 @@
 
     <?php if ($searched) { ?>
 
-
     	 <!-- Chart Section -->
-    	<section class="Charts">
+    	<section class="charts" id="charts">
         <div class="container">
     	    <h2 class="text-center text-uppercase text-secondary mb-0">Search Results</h2>
     	    <hr class="star-dark mb-5">
@@ -89,7 +88,7 @@
         	      var myChart = new Chart(ctx, {
         	          type: 'bar',
         	          data: {
-        	              labels: ["<?php echo $res[0] ?>", "<?php echo $res[1] ?>", "<?php echo $res[2] ?>", "<?php echo $res[3] ?>", "<?php 	echo $res[4] ?>", "<?php echo $res[5] ?>"],
+        	              labels: ["Tree", "Baum", "Herbst", "Himmel", "Sommer", "Sky"],
         	              datasets: [{
         	                  label: '# Matches',
         	                  data: [12, 19, 3, 5, 2, 3],
@@ -258,7 +257,7 @@
         <hr class="star-light mb-5">
         <div class="row">
           <div class="col-lg-4 ml-auto">
-            <p class="lead">WebTech Analytics verfolgt das Ziel Empörungswellen in sozialen Netzwerken anhand der Auswertung von visuellen Inhalten zu analysieren</p>
+            <p class="lead">WebTech Analytics verfolgt das Ziel Empörungswellen in sozialen Netzwerken anhand der Auswertung von visuellen Inhalten zu analysieren.</p>
           </div>
           <div class="col-lg-4 mr-auto">
             <p class="lead">Nach der eingabe eines Schlagwortes werden soziale Medien nach dazugehörigen Bildern durchsucht, diese analysiert und ihnen in aufberiteter, grafischer Form zur Verfügung gestellt. </p>
@@ -276,7 +275,7 @@
     <!-- Contact Section -->
     <section id="contact">
       <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">Contact Me</h2>
+        <h2 class="text-center text-uppercase text-secondary mb-0">Contact Us</h2>
         <hr class="star-dark mb-5">
         <div class="row">
           <div class="col-lg-8 mx-auto">
