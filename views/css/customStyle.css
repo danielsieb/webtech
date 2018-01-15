@@ -1,11 +1,10 @@
 #trennlinie {
-  border: none;
-  height: 5px;
-  background-color: rgb(71, 89,  106);
+  	border: none;
+  	height: 100px;
+  	background-color: white;
 }
 
 #logo {
 	height: auto;
     width: 30%;
  }
-

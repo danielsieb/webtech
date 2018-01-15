@@ -29,6 +29,18 @@
     <script src="views/js/Chart.bundle.js"></script>
     <script src="views/js/smoothScroll.js"></script>
 
+    <div id="loader"></div>
+
+    <script>
+    window.addEventListener("load", function(){
+      var loader = document.getElementById("loader");
+      document.body.removeChild(loader);
+    });
+        document.getElementById("searchButton").addEventListener("click", function(){
+      var loader = document.getElementById("loader");
+      document.body.addChild(loader);
+    });
+    </script>
 
   </head>
 
@@ -73,7 +85,6 @@
 
       </div>
     </header>
-    
 
       <?php if ($searched) { ?>
 
@@ -128,6 +139,7 @@
                             scales: {
                                 yAxes: [{
                                     ticks: {
+                                      max: 100,
                                         beginAtZero:true
                                     }
                                 }]
