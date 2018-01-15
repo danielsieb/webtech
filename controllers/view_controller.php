@@ -9,13 +9,15 @@
     public function search() {
       $searched = True;
       $searchKey = strip_tags(htmlspecialchars($_POST['searchKey']));
-      $image_urls = Suche::catchImageUrls($searchKey);
-
-      $test = json_decode(Suche::catchGoogleVisionData($image_urls[0]));
+      $tupel = Suche::catchImageUrls($searchKey);
+      $image_urls = $tupel[0];
+      $suchId = $tupel[1];
 
       foreach ($image_urls as $key => $value) {
-        $json[$key] = json_decode(Suche::catchGoogleVisionData($value));
+        $jsons[$key] = json_decode(Suche::catchGoogleVisionData($value));
       }
+
+      $cumulativeArray = Suche::cumulateJsons($jsons, $suchId); // Berechnet kumulierte Analyseergebnisse
       
       require_once('views/index.php'); 
     }

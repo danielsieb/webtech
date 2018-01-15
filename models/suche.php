@@ -1,30 +1,6 @@
 <?php
 
 class Suche {
-    
-    function auth_cloud_implicit($projectId)
-    {
-        $config = [
-            'projectId' => $projectId,
-        ];
-    
-        # If you don't specify credentials when constructing the client, the
-        # client library will look for credentials in the environment.
-        $storage = new StorageClient($config);
-    
-        # Make an authenticated API request (listing storage buckets)
-        foreach ($storage->buckets() as $bucket) {
-            printf('Bucket: %s' . PHP_EOL, $bucket->name());
-        }
-    }
-
-	private $such_ID;
-	private $zeitstempel;
-	private $suchbegriff;
-	private $sozialesMedium;
-	private $analyseergebnisse;
-
-
 
     //Datenbankabfrage des $zeitstempel
     public function getZeitstempel(){
@@ -38,7 +14,9 @@ class Suche {
     
     //Datenbankabfrage des $such_ID
     public function getSuchID(){
-    	$stmt = $dbh->prepare("SELECT FROM Suche WHERE such_ID=:such_ID");   
+        $db = Db::getInstance();
+        $db->query("SELECT FROM Suche WHERE Such_Id=:such_ID");
+    	$stmt = $dbh->prepare("SELECT FROM Suche WHERE Such_Id=:such_ID");   
             $stmt->bindValue(":such_ID", $this->such_ID);                                  
             $stmt->execute();
             return $this->such_ID;
@@ -53,7 +31,6 @@ class Suche {
             $stmt->execute();
             return $this->suchbegriff;
     }
-    
     
     
     //Speichern von Bildurl nach suchbegriff in Datenbank
@@ -81,8 +58,10 @@ class Suche {
             $db->query("INSERT INTO Bild (Bild_Id, Link) VALUES ('$bildId', '$value')");
             $db->query("INSERT INTO Bild_has_Suche (Bild_Bild_Id, Suche_Such_Id) VALUES ('$bildId', '$suchId')");
         }
-    
-    	return $res;
+        
+        $tupel = [$res, $suchId];
+
+    	return $tupel;
     }
     	 
     //schicken einer Abfrage und abholen von Analyseergebnisse
@@ -118,5 +97,85 @@ class Suche {
             return $json;
         }
     } 
+
+    public function cumulateJsons($jsons, $suchId) {
+
+        for ($i=0; $i < (count($jsons)-1) ; $i++) { 
+
+            foreach ($jsons[$i]->responses[0]->labelAnnotations as $label) {
+                $labelArray[] = $label->{'description'};                        // Erstellt Array aus in $jsons enthaltenen Labeln 
+            };
+            
+            foreach ($jsons[($i)]->responses[0]->labelAnnotations as $percent) {
+                $labelPercent[] = $percent->{'score'};                          // // Erstellt Array aus in $jsons enthaltenen Scores
+            }
+        }
+
+
+        for ($i=0; $i < (count($labelArray)) ; $i++) {
+            $sum = 0.0;
+            if ($labelPercent[$i] != 0)  {
+                $z = array_keys($labelArray,"$labelArray[$i]");             // Erstellt Array mit Schlüsseln, welche gleiche Labels in $labelArray adressieren 
+                $arrayLength = count($z);                                   // gibt Länge des mit Schlüsseln gefüllten Arrays aus = Anzahl gleicher Labels 
+
+                for ($j=0; $j < $arrayLength; $j++) { 
+                    $sum += (double)$labelPercent[($z[$j])];                // Summiert Scores der gleichen Label auf 
+                    $labelPercent[($z[$j])] = 0;                            // Ersetzt jeweils aufsummierten Score mit 0 --> erkennen was bereits bearbeitet wurde 
+                }
+
+                $sum = $sum / $arrayLength;
+                if ($sum > 0.7) {                                           // Score Filter 
+                    $cumLabelArray["$labelArray[$i]"] = $sum;               // cumLabelArray mit Labeln und dazugehlrigen ckumulierten Scores füllen 
+                }
+            }         
+        }
+
+
+        $cumJson = json_encode($cumLabelArray);                                     // Wandelt cumLabelArray in Json um 
+        $db = Db::getInstance();                                               
+        $db->query("UPDATE Suche SET Analyseergebnis = '$cumJson' WHERE Such_Id = '$suchId'");
+
+        return $cumLabelArray;
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

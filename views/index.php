@@ -23,24 +23,11 @@
 
     <!-- Custom styles for this template -->
     <link href="views/css/freelancer.min.css" rel="stylesheet">
-    <link href="views/css/customStyle.css" rel="stylesheet">
 
     <!-- Plugin JS -->
     <script src="views/js/Chart.bundle.js"></script>
     <script src="views/js/smoothScroll.js"></script>
 
-    <div id="loader"></div>
-
-    <script>
-    window.addEventListener("load", function(){
-      var loader = document.getElementById("loader");
-      document.body.removeChild(loader);
-    });
-        document.getElementById("searchButton").addEventListener("click", function(){
-      var loader = document.getElementById("loader");
-      document.body.addChild(loader);
-    });
-    </script>
 
   </head>
 
@@ -76,7 +63,7 @@
         <!-- Eingabeformular für Suchbegriff -->
         <form action="?action=search#charts" method="post">
           <div class="form-group">
-           <input class="form-control" id="searchKey" name="searchKey" type="text" placeholder="Keyword" required="required" data-validation-required-message="Please enter a keyword.">
+           <input class="form-control" id="searchKey" name="searchKey" type="text" placeholder="Keyword" required="required" data-validation-required-message="Please enter a keyword." autocomplete="off">
                   <p class="help-block text-danger"></p>
           </div>
          <button type="submit" class="btn btn-primary btn-xl" id="searchButton" onclick="">Search</button>
@@ -85,6 +72,14 @@
 
       </div>
     </header>
+
+    <div id="loading"></div>
+
+    <script>
+    document.getElementById("searchButton").addEventListener("click", function(){
+        document.getElementById("loading").innerHTML = "<div id='loader-wrapper'><div id='loader'></div><div class='loader-section'></div></div>";
+    });
+    </script>
 
       <?php if ($searched) { ?>
 
@@ -104,26 +99,23 @@
                         data: {
                             labels: [
                             <?php 
-                            foreach ($test->responses[0]->labelAnnotations as $value) { ?>
-                              "<?php echo $value->{'description'} ?>",
+                            foreach ($cumulativeArray as $key => $value) { ?>
+                              "<?php echo $key ?>",
                             <?php } ?>
                             ],
                             datasets: [{
-                                label: 'Matches',
+                                label: 'Matches in %',
                                 data: [
                                 <?php 
-                                foreach ($test->responses[0]->labelAnnotations as $value) {
-                                  echo ($value->{'score'})*100; ?>,
+                                foreach ($cumulativeArray as $key => $value) {
+                                  echo ($value*100); ?>,
                                   <?php } ?>
                                 ],
                                 backgroundColor: [
-                                  'rgb(255, 20,  100)',
-                                  'rgb(40,  54,  70)',
-                                  'rgb(255, 168, 25)',
-                                  'rgb(143, 190, 83)',
-                                  'rgb(46, 141, 214)',
-                                  'rgb(71, 89,  106)'
-                              ],
+                                  <?php for ($i=0; $i < (count($cumulativeArray)) ; $i++) { ?>
+                                      '<?php echo '(rgb(255,20,(100-$i))' ?>',
+                                    <?php } ?>
+                                ],
                               borderColor: [
                                   'rgb(250, 15,  90)',
                                   'rgb(30,  49,  65)',
@@ -139,7 +131,7 @@
                             scales: {
                                 yAxes: [{
                                     ticks: {
-                                      max: 100,
+                                        max: 100,
                                         beginAtZero:true
                                     }
                                 }]
@@ -159,7 +151,7 @@
                 <canvas id="myChart2" width="400" height="400"></canvas>
                 <script>
                   var ctx = document.getElementById("myChart2").getContext('2d');
-                  var myChart2 = new Chart(myChart2, {
+                  var myChart2 = new Chart(ctx, {
                       type: 'pie',
                       data: {
                           labels: ["Tree", "Baum", "Herbst", "Himmel", "Sommer", "Sky"],
@@ -191,11 +183,12 @@
                   });
                 </script>
               </div>
-            <?php } else { ?>
+              <?php } else { ?>
                 <div class="col-md-12 col-lg-12">
                   <center><b><h3 class="text-uppercase" style="color: red"> NO MATCHES ! </h3></b></center>
                 </div>
               <?php } ?>
+            </div>
           </div>
          
         </section> 
@@ -433,15 +426,64 @@
         <div class="container text-center">
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+              <h2 class="text-secondary text-uppercase mb-0">Analyse Image1</h2>
               <hr class="star-dark mb-5">
-              <img class="img-fluid mb-5" src="<?php echo $image_urls[0] ?>" alt="">
-              <p class="mb-5">Einzelnes Analyseergebnis</p>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-md-8">
+                <img class="img-fluid mb-5" src="<?php echo $image_urls[0] ?>" alt="">
+              </div>
+              <div class="col-md-4">
+                <canvas id="myChart3" width="400" height="400"></canvas>
+                  <script>
+                    var ctx = document.getElementById("myChart3").getContext('2d');
+                    var myChart3 = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: [
+                            <?php 
+                            foreach ($test->responses[0]->labelAnnotations as $value) { ?>
+                              "<?php echo $value->{'description'} ?>",
+                            <?php } ?>
+                            ],
+                            datasets: [{
+                                label: 'Matches in %',
+                                data: [
+                                <?php 
+                                foreach ($test->responses[0]->labelAnnotations as $value) {
+                                  echo ($value->{'score'})*100; ?>,
+                                  <?php } ?>
+                                ],
+                                backgroundColor: [
+                                  'rgb(255, 20,  100)',
+                                  'rgb(40,  54,  70)',
+                                  'rgb(255, 168, 25)',
+                                  'rgb(143, 190, 83)',
+                                  'rgb(46, 141, 214)',
+                                  'rgb(71, 89,  106)'
+                              ],
+                              borderColor: [
+                                  'rgb(250, 15,  90)',
+                                  'rgb(30,  49,  65)',
+                                  'rgb(250, 163, 20)',
+                                  'rgb(138, 185, 78)',
+                                  'rgb(41, 136, 209)',
+                                  'rgb(66, 84,  101)'
+                              ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                        }
+                    });
+                  </script>
+              </div>
+          </div>
+
               <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
                 <i class="fa fa-close"></i>
                 Close</a>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -455,7 +497,7 @@
         <div class="container text-center">
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+              <h2 class="text-secondary text-uppercase mb-0">Analyse Image2</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="<?php echo $image_urls[1] ?>" alt="">
               <p class="mb-5">Einzelnes Analyseergebnis</p>
@@ -477,7 +519,7 @@
         <div class="container text-center">
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+              <h2 class="text-secondary text-uppercase mb-0">Analyse Image3</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="<?php echo $image_urls[2] ?>" alt="">
               <p class="mb-5">Einzelnes Analyseergebnis</p>
@@ -499,7 +541,7 @@
         <div class="container text-center">
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+              <h2 class="text-secondary text-uppercase mb-0">Analyse Image4</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="<?php echo $image_urls[3] ?>" alt="">
               <p class="mb-5">Einzelnes Analyseergebnis</p>
@@ -520,8 +562,8 @@
         </a>
         <div class="container text-center">
           <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+            <div class="col-md-8 col-md-4">
+              <h2 class="text-secondary text-uppercase mb-0">Analyse Image5</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="<?php echo $image_urls[4] ?>" alt="">
               <p class="mb-5">Einzelnes Analyseergebnis</p>
@@ -543,7 +585,7 @@
         <div class="container text-center">
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
+              <h2 class="text-secondary text-uppercase mb-0">Analyse Image6</h2>
               <hr class="star-dark mb-5">
               <img class="img-fluid mb-5" src="<?php echo $image_urls[5] ?>" alt="">
               <p class="mb-5">Einzelnes Analyseergebnis</p>
